@@ -179,14 +179,15 @@ def naiveBayesBernFeature_test(Xtest, ytest, thetaPosTrue, thetaNegTrue):
         thetaLogNeg = 0.0
         for i in range(len(X)):
             if X[i] > 0:
-                if thetaPos[i] > 0:
-                    thetaLogPos += math.log2(thetaPosTrue[i])
-                if thetaNeg[i] > 0:
-                    thetaLogNeg += math.log2(thetaNegTrue[i])
-        if thetaLogNeg > thetaLogPos:
-            yPredict.append(0)
-        else:
+                thetaLogPos += math.log2(thetaPosTrue[i])
+                thetaLogNeg += math.log2(thetaNegTrue[i])
+            elif X[i] ==0:
+                thetaLogPos += math.log2(1-thetaPosTrue[i])
+                thetaLogNeg += math.log2(1-thetaNegTrue[i])
+        if thetaLogPos > thetaLogNeg:
             yPredict.append(1)
+        else:
+            yPredict.append(0)
     yPredict = np.array(yPredict)
 #     print(yPredict, ytest)
     errors = np.sum(np.absolute(yPredict - ytest))

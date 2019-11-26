@@ -113,8 +113,8 @@ def naiveBayesMulFeature_train(Xtrain, ytrain):
             thetaPos += Xtrain[i]
         elif ytrain[i] == 0:
             thetaNeg += Xtrain[i]
-    thetaPos = (thetaPos)/(thetaPos+thetaNeg)
-    thetaNeg = 1 - thetaPos
+    thetaPos = (thetaPos+1)/(np.sum(thetaPos)+Xtrain.shape[1])
+    thetaNeg = (thetaNeg+1)/(np.sum(thetaNeg)+Xtrain.shape[1])
 #     thetaPos += 1
 #     thetaNeg += 1
 #     thetaPos /= (Xtrain.shape[0]/2 + 2)
